@@ -1,391 +1,403 @@
 <!DOCTYPE html>
-<html lang="ru" class="light-theme">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Артём Столяренко | UX/UI Дизайнер</title>
-    <meta name="description" content="Портфолио UX/UI дизайнера. Создаю ясные интерфейсы, системы бренда и 3D-графику.">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>LiftLog - Трекер силовых тренировок</title>
+    <meta name="description" content="Приложение для отслеживания силовых тренировок с графиками прогресса">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
-    <!-- Favicon - добавь favicon.ico в папку images -->
-    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="stylesheet" href="lib/chartjs/chart.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏋️</text></svg>">
 </head>
-<body>
-    <!-- Навигация -->
-    <header class="header" id="header">
-        <div class="container">
-            <nav class="nav">
-                <a href="#" class="logo">Артём Столяренко</a>
-                <button class="menu-toggle" id="menuToggle" aria-label="Открыть меню">
-                    <span></span>
-                    <span></span>
-                </button>
-                <ul class="nav-list" id="navList">
-                    <li><a href="#works" class="nav-link">Работы</a></li>
-                    <li><a href="#experience" class="nav-link">Опыт</a></li>
-                    <li><a href="#skills" class="nav-link">Навыки</a></li>
-                    <li><a href="#about" class="nav-link">Обо мне</a></li>
-                    <li><a href="#contacts" class="nav-link">Контакты</a></li>
-                    <li>
-                        <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему">
-                            <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="5"></circle>
-                                <line x1="12" y1="1" x2="12" y2="3"></line>
-                                <line x1="12" y1="21" x2="12" y2="23"></line>
-                                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                                <line x1="1" y1="12" x2="3" y2="12"></line>
-                                <line x1="21" y1="12" x2="23" y2="12"></line>
-                                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                            </svg>
-                            <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                            </svg>
+<body data-theme="dark" aria-label="Приложение для отслеживания тренировок LiftLog">
+    <!-- Главный контейнер -->
+    <div id="app">
+        <!-- Шапка с улучшенной доступностью -->
+        <header class="header" role="banner">
+            <div class="container">
+                <div class="logo" role="heading" aria-level="1">
+                    <span class="logo-icon" aria-hidden="true">🏋️</span>
+                    <h1>LiftLog</h1>
+                </div>
+                <nav class="nav" aria-label="Основная навигация">
+                    <button class="nav-btn active" data-page="dashboard" aria-current="page">
+                        <i class="fas fa-chart-line" aria-hidden="true"></i>
+                        <span>Дашборд</span>
+                    </button>
+                    <button class="nav-btn" data-page="workout">
+                        <i class="fas fa-dumbbell" aria-hidden="true"></i>
+                        <span>Тренировка</span>
+                    </button>
+                    <button class="nav-btn" data-page="exercises">
+                        <i class="fas fa-list" aria-hidden="true"></i>
+                        <span>Упражнения</span>
+                    </button>
+                    <button class="nav-btn" data-page="progress">
+                        <i class="fas fa-chart-bar" aria-hidden="true"></i>
+                        <span>Прогресс</span>
+                    </button>
+                </nav>
+                <div class="header-actions">
+                    <button class="btn-icon" id="theme-toggle" title="Сменить тему" aria-label="Переключить светлую/тёмную тему">
+                        <i class="fas fa-moon" aria-hidden="true"></i>
+                    </button>
+                    <button class="btn-icon" id="export-data" title="Экспорт данных" aria-label="Экспортировать данные тренировок">
+                        <i class="fas fa-download" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Основной контент -->
+        <main class="main container" role="main">
+            <!-- Дашборд (главная) -->
+            <section id="dashboard-page" class="page active" aria-labelledby="dashboard-title">
+                <div class="page-header">
+                    <h2 id="dashboard-title">Мой прогресс</h2>
+                    <p class="subtitle">Обзор ваших силовых показателей</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card" role="region" aria-labelledby="total-workouts-label">
+                        <div class="stat-icon" aria-hidden="true"><i class="fas fa-chart-bar"></i></div>
+                        <h3 id="total-workouts-label">Всего тренировок</h3>
+                        <p class="stat-value" id="total-workouts">0</p>
+                        <div class="stat-trend" id="workout-trend"></div>
+                    </div>
+                    <div class="stat-card" role="region" aria-labelledby="best-exercise-label">
+                        <div class="stat-icon" aria-hidden="true"><i class="fas fa-trophy"></i></div>
+                        <h3 id="best-exercise-label">Лучшее упражнение</h3>
+                        <p class="stat-value" id="best-exercise">-</p>
+                        <p class="stat-subvalue" id="best-exercise-weight">-</p>
+                    </div>
+                    <div class="stat-card" role="region" aria-labelledby="avg-progress-label">
+                        <div class="stat-icon" aria-hidden="true"><i class="fas fa-chart-line"></i></div>
+                        <h3 id="avg-progress-label">Средний прогресс</h3>
+                        <p class="stat-value" id="avg-progress">0%</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div class="stat-card" role="region" aria-labelledby="total-recommendations-label">
+                        <div class="stat-icon" aria-hidden="true"><i class="fas fa-bullseye"></i></div>
+                        <h3 id="total-recommendations-label">Рекомендации</h3>
+                        <p class="stat-value" id="total-recommendations">0</p>
+                        <p class="stat-subvalue" id="recommendations-text">готовы к увеличению</p>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="section recent-workouts">
+                        <div class="section-header">
+                            <h3>Последние тренировки</h3>
+                            <button class="btn-text" id="view-all-workouts">Все тренировки</button>
+                        </div>
+                        <div id="recent-workouts" class="workouts-list" role="list" aria-label="Список последних тренировок">
+                            <!-- Список тренировок будет здесь -->
+                            <div class="empty-state">
+                                <i class="fas fa-dumbbell" aria-hidden="true"></i>
+                                <p>Тренировок пока нет</p>
+                                <button class="btn btn-primary" data-page="workout">Начать первую тренировку</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section quick-stats">
+                        <div class="section-header">
+                            <h3>Быстрая статистика</h3>
+                        </div>
+                        <div class="quick-stats-grid">
+                            <div class="quick-stat">
+                                <div class="quick-stat-icon" style="background: var(--color-success-light)">
+                                    <i class="fas fa-weight-hanging" style="color: var(--color-success)"></i>
+                                </div>
+                                <div>
+                                    <p class="quick-stat-label">Общий тоннаж</p>
+                                    <p class="quick-stat-value" id="total-tonnage">0 кг</p>
+                                </div>
+                            </div>
+                            <div class="quick-stat">
+                                <div class="quick-stat-icon" style="background: var(--color-warning-light)">
+                                    <i class="fas fa-fire" style="color: var(--color-warning)"></i>
+                                </div>
+                                <div>
+                                    <p class="quick-stat-label">Средний объём</p>
+                                    <p class="quick-stat-value" id="avg-volume">0 кг</p>
+                                </div>
+                            </div>
+                            <div class="quick-stat">
+                                <div class="quick-stat-icon" style="background: var(--color-info-light)">
+                                    <i class="fas fa-calendar" style="color: var(--color-info)"></i>
+                                </div>
+                                <div>
+                                    <p class="quick-stat-label">Тренировок/неделю</p>
+                                    <p class="quick-stat-value" id="workouts-per-week">0</p>
+                                </div>
+                            </div>
+                            <div class="quick-stat">
+                                <div class="quick-stat-icon" style="background: var(--color-primary-light)">
+                                    <i class="fas fa-trend-up" style="color: var(--color-primary)"></i>
+                                </div>
+                                <div>
+                                    <p class="quick-stat-label">Прогресс за месяц</p>
+                                    <p class="quick-stat-value" id="month-progress">+0%</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Страница тренировки -->
+            <section id="workout-page" class="page" aria-labelledby="workout-title" hidden>
+                <div class="page-header">
+                    <h2 id="workout-title">Новая тренировка</h2>
+                    <p class="subtitle">Запишите ваши подходы и повторения</p>
+                </div>
+
+                <div class="workout-form" role="form" aria-labelledby="workout-title">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="workout-date"><i class="fas fa-calendar-alt"></i> Дата тренировки</label>
+                            <input type="date" id="workout-date" class="form-control" value="" required aria-required="true">
+                        </div>
+                        <div class="form-group">
+                            <label for="workout-notes"><i class="fas fa-sticky-note"></i> Заметки</label>
+                            <input type="text" id="workout-notes" class="form-control" placeholder="Самочувствие, особенности..." maxlength="100">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exercise-select"><i class="fas fa-dumbbell"></i> Упражнение</label>
+                        <div class="select-wrapper">
+                            <select id="exercise-select" class="form-control" required aria-required="true">
+                                <option value="">Выберите упражнение</option>
+                            </select>
+                            <button class="btn-icon" id="add-exercise-btn" title="Добавить упражнение" aria-label="Добавить новое упражнение">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="sets-container">
+                        <div class="sets-header">
+                            <h3><i class="fas fa-list-ol"></i> Подходы</h3>
+                            <div class="sets-summary">
+                                <span>Объём: <strong id="total-volume">0 кг</strong></span>
+                                <span>1ПМ: <strong id="estimated-1rm">0 кг</strong></span>
+                            </div>
+                        </div>
+                        <div id="sets-list" role="list" aria-label="Список подходов">
+                            <!-- Подходы будут добавляться здесь -->
+                            <div class="set-row template" hidden>
+                                <div class="set-number" aria-label="Номер подхода">1</div>
+                                <input type="number" class="form-control set-weight" placeholder="Вес (кг)" min="0" step="0.5" 
+                                       aria-label="Вес для подхода 1" required>
+                                <input type="number" class="form-control set-reps" placeholder="Повторения" min="1" max="50" 
+                                       aria-label="Количество повторений для подхода 1" required>
+                                <button class="btn-icon delete-set" title="Удалить подход" aria-label="Удалить подход 1">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="sets-actions">
+                            <button class="btn btn-secondary" id="add-set-btn">
+                                <i class="fas fa-plus"></i> Добавить подход
+                            </button>
+                            <button class="btn btn-text" id="clear-sets-btn">
+                                <i class="fas fa-broom"></i> Очистить все
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button class="btn btn-primary" id="save-workout-btn">
+                            <i class="fas fa-save"></i> Сохранить тренировку
                         </button>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+                        <button class="btn btn-secondary" id="cancel-workout-btn" type="button">
+                            <i class="fas fa-times"></i> Отмена
+                        </button>
+                    </div>
+                </div>
+            </section>
 
-    <main>
-        <!-- Hero -->
-        <section id="hero" class="section hero">
-            <div class="container">
-                <div class="hero-content">
-                    <div class="hero-text">
-                        <h1 class="hero-title">UX/UI Дизайнер</h1>
-                        <p class="hero-subtitle">Создаю ясные интерфейсы и системы</p>
-                        <p class="hero-description">Специализируюсь на цифровых продуктах, айдентике и 3D-графике. Работаю с полным циклом: от исследования до реализации.</p>
-                        
-                        <div class="hero-stats">
-                            <div class="hero-stat">
-                                <div class="stat-number">6+</div>
-                                <div class="stat-label">лет в дизайне</div>
+            <!-- Страница упражнений -->
+            <section id="exercises-page" class="page" aria-labelledby="exercises-title" hidden>
+                <div class="page-header">
+                    <h2 id="exercises-title">Упражнения</h2>
+                    <p class="subtitle">Управление списком упражнений</p>
+                </div>
+
+                <div class="exercises-controls">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="exercise-search" placeholder="Поиск упражнений..." aria-label="Поиск упражнений">
+                    </div>
+                    <button class="btn btn-primary" id="add-exercise-modal-btn">
+                        <i class="fas fa-plus"></i> Добавить упражнение
+                    </button>
+                </div>
+
+                <div class="exercises-list" id="exercises-list" role="list" aria-label="Список упражнений">
+                    <!-- Список упражнений будет здесь -->
+                </div>
+            </section>
+
+            <!-- Страница прогресса -->
+            <section id="progress-page" class="page" aria-labelledby="progress-title" hidden>
+                <div class="page-header">
+                    <h2 id="progress-title">Прогресс</h2>
+                    <p class="subtitle">Графики и рекомендации по прогрессии</p>
+                </div>
+
+                <div class="progress-controls">
+                    <div class="form-group">
+                        <label for="progress-exercise-select"><i class="fas fa-dumbbell"></i> Упражнение</label>
+                        <select id="progress-exercise-select" class="form-control">
+                            <option value="">Выберите упражнение</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="chart-type"><i class="fas fa-chart-line"></i> Тип графика</label>
+                        <select id="chart-type" class="form-control">
+                            <option value="weight">Максимальный вес</option>
+                            <option value="volume">Объём (вес × повторения)</option>
+                            <option value="reps">Количество повторений</option>
+                            <option value="1rm">Расчётный 1ПМ</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="time-period"><i class="fas fa-calendar"></i> Период</label>
+                        <select id="time-period" class="form-control">
+                            <option value="all">Всё время</option>
+                            <option value="month">Месяц</option>
+                            <option value="3months">3 месяца</option>
+                            <option value="6months">6 месяцев</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h4 id="chart-title">Прогресс по упражнению</h4>
+                        <div class="chart-actions">
+                            <button class="btn-icon" id="export-chart" title="Экспорт графика" aria-label="Экспортировать график">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <canvas id="progress-chart" aria-label="График прогресса" role="img"></canvas>
+                </div>
+
+                <div class="progress-insights">
+                    <div class="insight-card">
+                        <h4><i class="fas fa-lightbulb"></i> Рекомендации</h4>
+                        <div id="recommendations" class="recommendations">
+                            <!-- Рекомендации будут здесь -->
+                            <p class="empty-state">Выберите упражнение для получения рекомендаций</p>
+                        </div>
+                    </div>
+                    <div class="insight-card">
+                        <h4><i class="fas fa-chart-pie"></i> Статистика упражнения</h4>
+                        <div id="exercise-stats" class="exercise-stats">
+                            <div class="stat-item">
+                                <span>Всего тренировок:</span>
+                                <strong id="stat-total-workouts">0</strong>
                             </div>
-                            <div class="hero-stat">
-                                <div class="stat-number">30+</div>
-                                <div class="stat-label">проектов</div>
+                            <div class="stat-item">
+                                <span>Максимальный вес:</span>
+                                <strong id="stat-max-weight">0 кг</strong>
                             </div>
-                            <div class="hero-stat">
-                                <div class="stat-number">3</div>
-                                <div class="stat-label">направления</div>
+                            <div class="stat-item">
+                                <span>Средний объём:</span>
+                                <strong id="stat-avg-volume">0 кг</strong>
                             </div>
-                        </div>
-                        
-                        <div class="hero-buttons">
-                            <a href="#works" class="btn btn-primary">Смотреть работы</a>
-                            <a href="#contacts" class="btn btn-outline">Связаться</a>
-                        </div>
-                    </div>
-                    
-                    <div class="hero-image">
-                        <!-- ТВОЁ ФОТО: добавь images/avatar.jpg -->
-                        <div class="avatar">
-                            <img src="images/avatar.jpg" alt="Артём Столяренко" class="avatar-img">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Работы -->
-        <section id="works" class="section works">
-            <div class="container">
-                <h2 class="section-title">Работы</h2>
-                <p class="section-subtitle">По одной ключевой работе из каждого направления</p>
-                
-                <div class="works-grid">
-                    <div class="work-card">
-                        <div class="work-card-header">
-                            <div class="work-category">Веб-дизайн</div>
-                            <h3 class="work-title">Корпоративный сайт</h3>
-                        </div>
-                        <div class="work-image">
-                            <!-- СКРИНШОТ ВЕБ-ПРОЕКТА: добавь images/project-web.jpg -->
-                            <img src="images/project-web.jpg" alt="Корпоративный сайт" class="work-img">
-                        </div>
-                        <div class="work-tags">
-                            <span class="tag">Figma</span>
-                            <span class="tag">Прототипирование</span>
-                            <span class="tag">Адаптив</span>
-                        </div>
-                        <p class="work-description">Полный цикл дизайна корпоративного сайта с нуля. Разработка UI-кита, дизайн-системы и адаптивной версии.</p>
-                    </div>
-
-                    <div class="work-card">
-                        <div class="work-card-header">
-                            <div class="work-category">Брендинг</div>
-                            <h3 class="work-title">Айдентика стартапа</h3>
-                        </div>
-                        <div class="work-image">
-                            <!-- СКРИНШОТ БРЕНДБУКА: добавь images/project-brand.jpg -->
-                            <img src="images/project-brand.jpg" alt="Айдентика стартапа" class="work-img">
-                        </div>
-                        <div class="work-tags">
-                            <span class="tag">Логотип</span>
-                            <span class="tag">Брендбук</span>
-                            <span class="tag">Гайдлайны</span>
-                        </div>
-                        <p class="work-description">Разработка комплексной айдентики для IT-стартапа: логотип, цветовая палитра, типографика и брендбук.</p>
-                    </div>
-
-                    <div class="work-card">
-                        <div class="work-card-header">
-                            <div class="work-category">3D-графика</div>
-                            <h3 class="work-title">Продуктовая визуализация</h3>
-                        </div>
-                        <div class="work-image">
-                            <!-- СКРИНШОТ 3D-РАБОТЫ: добавь images/project-3d.jpg -->
-                            <img src="images/project-3d.jpg" alt="Продуктовая визуализация" class="work-img">
-                        </div>
-                        <div class="work-tags">
-                            <span class="tag">Blender</span>
-                            <span class="tag">Рендер</span>
-                            <span class="tag">Текстурирование</span>
-                        </div>
-                        <p class="work-description">Создание 3D-моделей и фотореалистичных рендеров для презентации продукта в цифровой среде.</p>
-                    </div>
-                </div>
-
-                <div class="works-link">
-                    <a href="https://www.figma.com/design/1ElPIfj5KoqUDWDFeGDax8/%D0%9F%D0%BE%D1%80%D1%82%D1%84%D0%BE%D0%BB%D0%B8%D0%BE?node-id=1134-378&t=1byAhaKkjgwcsbOw-1" 
-                       class="btn btn-outline" target="_blank">
-                        Полное портфолио на Figma
-                        <i class="fas fa-external-link-alt"></i>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Опыт -->
-        <section id="experience" class="section experience">
-            <div class="container">
-                <h2 class="section-title animate-on-scroll">Опыт и образование</h2>
-                
-                <div class="timeline">
-                    <div class="timeline-item animate-on-scroll">
-                        <div class="timeline-date">2020 – настоящее время</div>
-                        <div class="timeline-content">
-                            <h3 class="timeline-title">Фриланс</h3>
-                            <div class="timeline-subtitle">Индивидуальные заказы</div>
-                            <p class="timeline-description">Выполнение проектов для клиентов: дизайн сайтов, логотипы, айдентика, 3D-визуализация. Более 30 успешных проектов.</p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item animate-on-scroll">
-                        <div class="timeline-date">2022 – 2026</div>
-                        <div class="timeline-content">
-                            <h3 class="timeline-title">Высшее образование</h3>
-                            <div class="timeline-subtitle">СПбГУПТД</div>
-                            <p class="timeline-description">Направление: "Прикладная информатика в дизайне". Изучение digital-дизайна, программирования и управления проектами.</p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item animate-on-scroll">
-                        <div class="timeline-date">2023 – 2024 (1.5 года)</div>
-                        <div class="timeline-content">
-                            <h3 class="timeline-title">Дизайнер и художник</h3>
-                            <div class="timeline-subtitle">ГАЗСТРОЙПРОМ</div>
-                            <p class="timeline-description">Разработка интерфейсов для внутренних сервисов, создание игровых ассетов и визуальных концепций. Работа в составе продукт-команды.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Навыки -->
-        <section id="skills" class="section skills">
-            <div class="container">
-                <h2 class="section-title">Навыки</h2>
-                <p class="section-subtitle">Основные направления работы</p>
-                
-                <div class="skills-grid">
-                    <div class="skill-category">
-                        <h3 class="skill-category-title">
-                            <i class="fas fa-search"></i>
-                            Исследования
-                        </h3>
-                        <ul class="skill-list">
-                            <li>User Research</li>
-                            <li>Customer Journey Map</li>
-                            <li>Анализ конкурентов</li>
-                        </ul>
-                    </div>
-
-                    <div class="skill-category">
-                        <h3 class="skill-category-title">
-                            <i class="fas fa-pencil-ruler"></i>
-                            Проектирование
-                        </h3>
-                        <ul class="skill-list">
-                            <li>Wireframing</li>
-                            <li>Прототипирование</li>
-                            <li>User Flow</li>
-                        </ul>
-                    </div>
-
-                    <div class="skill-category">
-                        <h3 class="skill-category-title">
-                            <i class="fas fa-cube"></i>
-                            3D & Графика
-                        </h3>
-                        <ul class="skill-list">
-                            <li>Blender</li>
-                            <li>3D моделирование</li>
-                            <li>Текстурирование</li>
-                            <li>Рендеринг</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Инструменты -->
-        <section id="tools" class="section tools">
-            <div class="container">
-                <h2 class="section-title animate-on-scroll">Инструменты</h2>
-                <p class="section-subtitle animate-on-scroll">Программы, которыми уверенно владею</p>
-                
-                <div class="tools-grid">
-                    <div class="tool-item animate-on-scroll">
-                        <div class="tool-icon">Ps</div>
-                        <div class="tool-name">Photoshop</div>
-                    </div>
-                    <div class="tool-item animate-on-scroll">
-                        <div class="tool-icon">Ai</div>
-                        <div class="tool-name">Illustrator</div>
-                    </div>
-                    <div class="tool-item animate-on-scroll">
-                        <div class="tool-icon">Ae</div>
-                        <div class="tool-name">After Effects</div>
-                    </div>
-                    <div class="tool-item animate-on-scroll">
-                        <div class="tool-icon">Id</div>
-                        <div class="tool-name">InDesign</div>
-                    </div>
-                    <div class="tool-item animate-on-scroll">
-                        <div class="tool-icon">Pr</div>
-                        <div class="tool-name">Premiere Pro</div>
-                    </div>
-                    <div class="tool-item animate-on-scroll">
-                        <div class="tool-icon">
-                            <span class="aseprite-icon">Ase</span>
-                        </div>
-                        <div class="tool-name">Aseprite</div>
-                    </div>
-                    <div class="tool-item animate-on-scroll">
-                        <div class="tool-icon">
-                            <i class="devicon-vscode-plain"></i>
-                        </div>
-                        <div class="tool-name">VSCode</div>
-                    </div>
-                    <div class="tool-item animate-on-scroll">
-                        <div class="tool-icon">
-                            <i class="fab fa-figma"></i>
-                        </div>
-                        <div class="tool-name">Figma</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Обо мне -->
-        <section id="about" class="section about">
-            <div class="container">
-                <h2 class="section-title animate-on-scroll">Обо мне</h2>
-                <div class="about-content">
-                    <div class="about-text animate-on-scroll">
-                        <p>Я проектирую и создаю цифровые интерфейсы, которые решают задачи пользователей и бизнеса. В работе фокусируюсь на <strong>ясности, логике и практической пользе</strong> — будь то дизайн сайта, разработка системы бренда или 3D-визуализация.</p>
-                        <p>Стремлюсь к тому, чтобы каждое дизайн-решение было обоснованным и понятным для всех участников процесса — от коллег до заказчиков.</p>
-                        <p>Моя цель — создавать эффективные и продуманные продукты, с которыми удобно взаимодействовать.</p>
-                        
-                        <div class="about-stats">
-                            <div class="stat">
-                                <div class="stat-number">6+</div>
-                                <div class="stat-label">лет в дизайне</div>
-                            </div>
-                            <div class="stat">
-                                <div class="stat-number">30+</div>
-                                <div class="stat-label">проектов</div>
-                            </div>
-                            <div class="stat">
-                                <div class="stat-number">3</div>
-                                <div class="stat-label">направления</div>
+                            <div class="stat-item">
+                                <span>Прогресс за месяц:</span>
+                                <strong id="stat-month-progress" class="positive">+0%</strong>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </main>
 
-        <!-- Контакты -->
-        <section id="contacts" class="section contacts">
-            <div class="container">
-                <h2 class="section-title animate-on-scroll">Контакты</h2>
-                <p class="section-subtitle animate-on-scroll">Свяжитесь со мной удобным способом</p>
-                
-                <div class="contacts-content">
-                    <div class="contact-info animate-on-scroll">
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fab fa-telegram"></i>
-                            </div>
-                            <div class="contact-details">
-                                <h3>Telegram</h3>
-                                <a href="https://t.me/SUSULUVSU" target="_blank">@SUSULUVSU</a>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div class="contact-details">
-                                <h3>Email</h3>
-                                <a href="mailto:stolyarenkoartyom@gmail.com">stolyarenkoartyom@gmail.com</a>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fab fa-figma"></i>
-                            </div>
-                            <div class="contact-details">
-                                <h3>Figma</h3>
-                                <a href="https://www.figma.com/design/1ElPIfj5KoqUDWDFeGDax8/%D0%9F%D0%BE%D1%80%D1%82%D1%84%D0%BE%D0%BB%D0%B8%D0%BE?node-id=1134-378&t=1byAhaKkjgwcsbOw-1" target="_blank">Открыть портфолио</a>
-                            </div>
-                        </div>
+        <!-- Модальное окно добавления упражнения -->
+        <div class="modal" id="add-exercise-modal" role="dialog" aria-labelledby="modal-title" aria-hidden="true" hidden>
+            <div class="modal-overlay" tabindex="-1"></div>
+            <div class="modal-content" role="document">
+                <div class="modal-header">
+                    <h3 id="modal-title">Новое упражнение</h3>
+                    <button class="btn-icon close-modal" aria-label="Закрыть модальное окно">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="new-exercise-name"><i class="fas fa-dumbbell"></i> Название упражнения</label>
+                        <input type="text" id="new-exercise-name" class="form-control" 
+                               placeholder="Например: Жим штанги лёжа" required aria-required="true">
+                    </div>
+                    <div class="form-group">
+                        <label for="new-exercise-type"><i class="fas fa-tags"></i> Тип упражнения</label>
+                        <select id="new-exercise-type" class="form-control">
+                            <option value="strength">Силовое</option>
+                            <option value="hypertrophy">На гипертрофию</option>
+                            <option value="accessory">Вспомогательное</option>
+                            <option value="warmup">Разминочное</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-exercise-muscle"><i class="fas fa-user"></i> Основная группа мышц</label>
+                        <select id="new-exercise-muscle" class="form-control">
+                            <option value="chest">Грудь</option>
+                            <option value="back">Спина</option>
+                            <option value="legs">Ноги</option>
+                            <option value="shoulders">Плечи</option>
+                            <option value="arms">Руки</option>
+                            <option value="core">Пресс</option>
+                        </select>
                     </div>
                 </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Футер -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-info">
-                    <p class="footer-text">Сайт создан с использованием DeepSeek. Время разработки: ~6 часов.</p>
-                    <p class="footer-text">Реализовано на JS: переключение светлой/тёмной темы, плавные анимации при скролле, мобильное меню.</p>
-                </div>
-                <div class="footer-bottom">
-                    <p class="copyright">&copy; Артём Столяренко, <span id="currentYear">2024</span></p>
-                    <a href="#" class="back-to-top" id="backToTop">
-                        <i class="fas fa-arrow-up"></i>
-                        Наверх
-                    </a>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary close-modal">
+                        <i class="fas fa-times"></i> Отмена
+                    </button>
+                    <button class="btn btn-primary" id="save-exercise-btn">
+                        <i class="fas fa-save"></i> Сохранить
+                    </button>
                 </div>
             </div>
         </div>
-    </footer>
 
-    <script src="js/main.js"></script>
+        <!-- Модальное окно редактирования тренировки -->
+        <div class="modal" id="edit-workout-modal" role="dialog" aria-labelledby="edit-modal-title" aria-hidden="true" hidden>
+            <div class="modal-overlay" tabindex="-1"></div>
+            <div class="modal-content" role="document">
+                <div class="modal-header">
+                    <h3 id="edit-modal-title">Редактировать тренировку</h3>
+                    <button class="btn-icon close-modal" aria-label="Закрыть модальное окно">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body" id="edit-workout-content">
+                    <!-- Контент будет добавляться динамически -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Уведомления -->
+        <div class="notifications" id="notifications" role="status" aria-live="polite" aria-atomic="true"></div>
+
+        <!-- Подсказка для клавиатуры -->
+        <div class="keyboard-hint" id="keyboard-hint" aria-hidden="true">
+            <span>Используйте Tab для навигации, Enter для выбора</span>
+        </div>
+    </div>
+
+    <!-- Подключение библиотек -->
+    <script src="lib/chartjs/chart.min.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
