@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ru" class="light-theme">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Артём Столяренко | UX/UI Дизайнер</title>
+    <meta name="description" content="Портфолио UX/UI дизайнера. Создаю ясные интерфейсы, системы бренда и 3D-графику.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
+    <!-- Favicon - добавь favicon.ico в папку images -->
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+</head>
+<body>
+    <!-- Навигация -->
+    <header class="header" id="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="#" class="logo">Артём Столяренко</a>
+                <button class="menu-toggle" id="menuToggle" aria-label="Открыть меню">
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-list" id="navList">
+                    <li><a href="#works" class="nav-link">Работы</a></li>
+                    <li><a href="#experience" class="nav-link">Опыт</a></li>
+                    <li><a href="#skills" class="nav-link">Навыки</a></li>
+                    <li><a href="#about" class="nav-link">Обо мне</a></li>
+                    <li><a href="#contacts" class="nav-link">Контакты</a></li>
+                    <li>
+                        <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему">
+                            <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="5"></circle>
+                                <line x1="12" y1="1" x2="12" y2="3"></line>
+                                <line x1="12" y1="21" x2="12" y2="23"></line>
+                                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                                <line x1="1" y1="12" x2="3" y2="12"></line>
+                                <line x1="21" y1="12" x2="23" y2="12"></line>
+                                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                            </svg>
+                            <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                            </svg>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero -->
+        <section id="hero" class="section hero">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h1 class="hero-title">UX/UI Дизайнер</h1>
+                        <p class="hero-subtitle">Создаю ясные интерфейсы и системы</p>
+                        <p class="hero-description">Специализируюсь на цифровых продуктах, айдентике и 3D-графике. Работаю с полным циклом: от исследования до реализации.</p>
+                        
+                        <div class="hero-stats">
+                            <div class="hero-stat">
+                                <div class="stat-number">6+</div>
+                                <div class="stat-label">лет в дизайне</div>
+                            </div>
+                            <div class="hero-stat">
+                                <div class="stat-number">30+</div>
+                                <div class="stat-label">проектов</div>
+                            </div>
+                            <div class="hero-stat">
+                                <div class="stat-number">3</div>
+                                <div class="stat-label">направления</div>
+                            </div>
+                        </div>
+                        
+                        <div class="hero-buttons">
+                            <a href="#works" class="btn btn-primary">Смотреть работы</a>
+                            <a href="#contacts" class="btn btn-outline">Связаться</a>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-image">
+                        <!-- ТВОЁ ФОТО: добавь images/avatar.jpg -->
+                        <div class="avatar">
+                            <img src="images/avatar.jpg" alt="Артём Столяренко" class="avatar-img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Работы -->
+        <section id="works" class="section works">
+            <div class="container">
+                <h2 class="section-title">Работы</h2>
+                <p class="section-subtitle">По одной ключевой работе из каждого направления</p>
+                
+                <div class="works-grid">
+                    <div class="work-card">
+                        <div class="work-card-header">
+                            <div class="work-category">Веб-дизайн</div>
+                            <h3 class="work-title">Корпоративный сайт</h3>
+                        </div>
+                        <div class="work-image">
+                            <!-- СКРИНШОТ ВЕБ-ПРОЕКТА: добавь images/project-web.jpg -->
+                            <img src="images/project-web.jpg" alt="Корпоративный сайт" class="work-img">
+                        </div>
+                        <div class="work-tags">
+                            <span class="tag">Figma</span>
+                            <span class="tag">Прототипирование</span>
+                            <span class="tag">Адаптив</span>
+                        </div>
+                        <p class="work-description">Полный цикл дизайна корпоративного сайта с нуля. Разработка UI-кита, дизайн-системы и адаптивной версии.</p>
+                    </div>
+
+                    <div class="work-card">
+                        <div class="work-card-header">
+                            <div class="work-category">Брендинг</div>
+                            <h3 class="work-title">Айдентика стартапа</h3>
+                        </div>
+                        <div class="work-image">
+                            <!-- СКРИНШОТ БРЕНДБУКА: добавь images/project-brand.jpg -->
+                            <img src="images/project-brand.jpg" alt="Айдентика стартапа" class="work-img">
+                        </div>
+                        <div class="work-tags">
+                            <span class="tag">Логотип</span>
+                            <span class="tag">Брендбук</span>
+                            <span class="tag">Гайдлайны</span>
+                        </div>
+                        <p class="work-description">Разработка комплексной айдентики для IT-стартапа: логотип, цветовая палитра, типографика и брендбук.</p>
+                    </div>
+
+                    <div class="work-card">
+                        <div class="work-card-header">
+                            <div class="work-category">3D-графика</div>
+                            <h3 class="work-title">Продуктовая визуализация</h3>
+                        </div>
+                        <div class="work-image">
+                            <!-- СКРИНШОТ 3D-РАБОТЫ: добавь images/project-3d.jpg -->
+                            <img src="images/project-3d.jpg" alt="Продуктовая визуализация" class="work-img">
+                        </div>
+                        <div class="work-tags">
+                            <span class="tag">Blender</span>
+                            <span class="tag">Рендер</span>
+                            <span class="tag">Текстурирование</span>
+                        </div>
+                        <p class="work-description">Создание 3D-моделей и фотореалистичных рендеров для презентации продукта в цифровой среде.</p>
+                    </div>
+                </div>
+
+                <div class="works-link">
+                    <a href="https://www.figma.com/design/1ElPIfj5KoqUDWDFeGDax8/%D0%9F%D0%BE%D1%80%D1%82%D1%84%D0%BE%D0%BB%D0%B8%D0%BE?node-id=1134-378&t=1byAhaKkjgwcsbOw-1" 
+                       class="btn btn-outline" target="_blank">
+                        Полное портфолио на Figma
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Опыт -->
+        <section id="experience" class="section experience">
+            <div class="container">
+                <h2 class="section-title animate-on-scroll">Опыт и образование</h2>
+                
+                <div class="timeline">
+                    <div class="timeline-item animate-on-scroll">
+                        <div class="timeline-date">2020 – настоящее время</div>
+                        <div class="timeline-content">
+                            <h3 class="timeline-title">Фриланс</h3>
+                            <div class="timeline-subtitle">Индивидуальные заказы</div>
+                            <p class="timeline-description">Выполнение проектов для клиентов: дизайн сайтов, логотипы, айдентика, 3D-визуализация. Более 30 успешных проектов.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item animate-on-scroll">
+                        <div class="timeline-date">2022 – 2026</div>
+                        <div class="timeline-content">
+                            <h3 class="timeline-title">Высшее образование</h3>
+                            <div class="timeline-subtitle">СПбГУПТД</div>
+                            <p class="timeline-description">Направление: "Прикладная информатика в дизайне". Изучение digital-дизайна, программирования и управления проектами.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item animate-on-scroll">
+                        <div class="timeline-date">2023 – 2024 (1.5 года)</div>
+                        <div class="timeline-content">
+                            <h3 class="timeline-title">Дизайнер и художник</h3>
+                            <div class="timeline-subtitle">ГАЗСТРОЙПРОМ</div>
+                            <p class="timeline-description">Разработка интерфейсов для внутренних сервисов, создание игровых ассетов и визуальных концепций. Работа в составе продукт-команды.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Навыки -->
+        <section id="skills" class="section skills">
+            <div class="container">
+                <h2 class="section-title">Навыки</h2>
+                <p class="section-subtitle">Основные направления работы</p>
+                
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3 class="skill-category-title">
+                            <i class="fas fa-search"></i>
+                            Исследования
+                        </h3>
+                        <ul class="skill-list">
+                            <li>User Research</li>
+                            <li>Customer Journey Map</li>
+                            <li>Анализ конкурентов</li>
+                        </ul>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3 class="skill-category-title">
+                            <i class="fas fa-pencil-ruler"></i>
+                            Проектирование
+                        </h3>
+                        <ul class="skill-list">
+                            <li>Wireframing</li>
+                            <li>Прототипирование</li>
+                            <li>User Flow</li>
+                        </ul>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3 class="skill-category-title">
+                            <i class="fas fa-cube"></i>
+                            3D & Графика
+                        </h3>
+                        <ul class="skill-list">
+                            <li>Blender</li>
+                            <li>3D моделирование</li>
+                            <li>Текстурирование</li>
+                            <li>Рендеринг</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Инструменты -->
+        <section id="tools" class="section tools">
+            <div class="container">
+                <h2 class="section-title animate-on-scroll">Инструменты</h2>
+                <p class="section-subtitle animate-on-scroll">Программы, которыми уверенно владею</p>
+                
+                <div class="tools-grid">
+                    <div class="tool-item animate-on-scroll">
+                        <div class="tool-icon">Ps</div>
+                        <div class="tool-name">Photoshop</div>
+                    </div>
+                    <div class="tool-item animate-on-scroll">
+                        <div class="tool-icon">Ai</div>
+                        <div class="tool-name">Illustrator</div>
+                    </div>
+                    <div class="tool-item animate-on-scroll">
+                        <div class="tool-icon">Ae</div>
+                        <div class="tool-name">After Effects</div>
+                    </div>
+                    <div class="tool-item animate-on-scroll">
+                        <div class="tool-icon">Id</div>
+                        <div class="tool-name">InDesign</div>
+                    </div>
+                    <div class="tool-item animate-on-scroll">
+                        <div class="tool-icon">Pr</div>
+                        <div class="tool-name">Premiere Pro</div>
+                    </div>
+                    <div class="tool-item animate-on-scroll">
+                        <div class="tool-icon">
+                            <span class="aseprite-icon">Ase</span>
+                        </div>
+                        <div class="tool-name">Aseprite</div>
+                    </div>
+                    <div class="tool-item animate-on-scroll">
+                        <div class="tool-icon">
+                            <i class="devicon-vscode-plain"></i>
+                        </div>
+                        <div class="tool-name">VSCode</div>
+                    </div>
+                    <div class="tool-item animate-on-scroll">
+                        <div class="tool-icon">
+                            <i class="fab fa-figma"></i>
+                        </div>
+                        <div class="tool-name">Figma</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Обо мне -->
+        <section id="about" class="section about">
+            <div class="container">
+                <h2 class="section-title animate-on-scroll">Обо мне</h2>
+                <div class="about-content">
+                    <div class="about-text animate-on-scroll">
+                        <p>Я проектирую и создаю цифровые интерфейсы, которые решают задачи пользователей и бизнеса. В работе фокусируюсь на <strong>ясности, логике и практической пользе</strong> — будь то дизайн сайта, разработка системы бренда или 3D-визуализация.</p>
+                        <p>Стремлюсь к тому, чтобы каждое дизайн-решение было обоснованным и понятным для всех участников процесса — от коллег до заказчиков.</p>
+                        <p>Моя цель — создавать эффективные и продуманные продукты, с которыми удобно взаимодействовать.</p>
+                        
+                        <div class="about-stats">
+                            <div class="stat">
+                                <div class="stat-number">6+</div>
+                                <div class="stat-label">лет в дизайне</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-number">30+</div>
+                                <div class="stat-label">проектов</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-number">3</div>
+                                <div class="stat-label">направления</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Контакты -->
+        <section id="contacts" class="section contacts">
+            <div class="container">
+                <h2 class="section-title animate-on-scroll">Контакты</h2>
+                <p class="section-subtitle animate-on-scroll">Свяжитесь со мной удобным способом</p>
+                
+                <div class="contacts-content">
+                    <div class="contact-info animate-on-scroll">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fab fa-telegram"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h3>Telegram</h3>
+                                <a href="https://t.me/SUSULUVSU" target="_blank">@SUSULUVSU</a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h3>Email</h3>
+                                <a href="mailto:stolyarenkoartyom@gmail.com">stolyarenkoartyom@gmail.com</a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fab fa-figma"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h3>Figma</h3>
+                                <a href="https://www.figma.com/design/1ElPIfj5KoqUDWDFeGDax8/%D0%9F%D0%BE%D1%80%D1%82%D1%84%D0%BE%D0%BB%D0%B8%D0%BE?node-id=1134-378&t=1byAhaKkjgwcsbOw-1" target="_blank">Открыть портфолио</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Футер -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <p class="footer-text">Сайт создан с использованием DeepSeek. Время разработки: ~6 часов.</p>
+                    <p class="footer-text">Реализовано на JS: переключение светлой/тёмной темы, плавные анимации при скролле, мобильное меню.</p>
+                </div>
+                <div class="footer-bottom">
+                    <p class="copyright">&copy; Артём Столяренко, <span id="currentYear">2024</span></p>
+                    <a href="#" class="back-to-top" id="backToTop">
+                        <i class="fas fa-arrow-up"></i>
+                        Наверх
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
